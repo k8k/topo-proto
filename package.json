@@ -1,0 +1,15 @@
+{
+  "name": "topology-prototype",
+  "version": "1.0.0",
+  "description": "protoype of potential visualization",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.15.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "kate kuchin"
+}

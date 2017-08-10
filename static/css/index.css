@@ -1,0 +1,178 @@
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('bower_components/font-awesome/fonts/fontawesome-webfont.woff') format('woff');
+}
+@font-face {
+  font-family: 'PatternFlyIcons-webfont';
+  src: url('bower_components/patternfly/dist/fonts/PatternFlyIcons-webfont.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'PatternFlyIcons-webfont';
+  src: url('bower_components/patternfly/dist/fonts/PatternFlyIcons-webfont.woff') format('woff');
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  background: #616161;
+}
+
+kubernetes-topology-graph {
+  border: 20px solid var(--light-1);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+.controls {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  right: 40px;
+  background-color: var(--light-1);
+  padding: 0 10px;
+  border-radius: 3px;
+}
+
+#selected {
+  float: right;
+  display: block;
+  margin-top: 15px;
+}
+.panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 450px;
+  height: 100vh;
+  background-color: white;
+  /*border: 1px solid var(--dark-1);*/
+  transform: translateX(100%);
+  transition: transform 0.5s ease-in-out;
+  font-family: 'Roboto';
+  padding: 20px;
+}
+
+.panel-view {
+  transform: translateX(0);
+}
+
+.manifest td {
+  word-wrap: break-word;
+}
+
+#manifest.visible.Pod h3,
+#manifest.visible.Pod .key {
+  color: var(--k8s-pod);
+}
+
+#manifest.visible.Node h3,
+#manifest.visible.Node .key {
+  color: var(--k8s-node);
+}
+
+#manifest.visible.Service h3,
+#manifest.visible.Service .key {
+  color: var(--k8s-service);
+}
+
+#manifest.visible.ReplicationController h3,
+#manifest.visible.ReplicationController .key {
+  color: var(--k8s-replication-controller);
+}
+
+#manifest.visible.ReplicaSet h3,
+#manifest.visible.ReplicaSet .key {
+  color: var(--k8s-replica-set);
+}
+
+#manifest.visible.Container h3,
+#manifest.visible.Container .key {
+  color: var(--k8s-container);
+}
+
+.kube-topology g.Pod text,
+.kube-topology g.Node text,
+.kube-topology g.Container text,
+.kube-topology g.ReplicaSet text,
+.kube-topology g.Service text,
+.kube-topology g.ReplicationController text {
+  font-size: 20px;
+}
+
+.kube-topology g.ReplicationController text {
+  fill: var(--k8s-replication-controller);
+}
+
+.kube-topology g.ReplicaSet text {
+  fill: var(--k8s-replica-set)
+}
+
+.kube-topology g.Node text {
+  fill: var(--k8s-node)
+}
+
+.kube-topology g.Service text {
+  font-family: FontAwesome;
+  font-size: 18px;
+  fill: var(--k8s-service)
+}
+
+.kube-topology g.Pod text {
+
+  fill: var(--k8s-pod)
+}
+
+.kube-topology g.Container text {
+  font-family: FontAwesome;
+  font-size: 18px;
+  fill: var(--k8s-container)
+}
+
+kubernetes-topology-icon svg {
+    width: 42px;
+    height: 42px;
+    display: block;
+}
+
+.kube-topology g.Container path {
+  stroke: var(--k8s-container);
+}
+
+.kube-topology g.Pod circle {
+  stroke: var(--k8s-pod);
+}
+
+.kube-topology g.Node circle {
+  stroke: var(--k8s-node);
+}
+
+.kube-topology g.Service circle {
+  stroke: var(--k8s-service);
+}
+
+.kube-topology g.ReplicationController circle {
+  stroke: var(--k8s-replication-controller);
+}
+
+.kube-topology g.ReplicaSet circle {
+  stroke: var(--k8s-replica-set);
+}
+.kube-topology g.Container circle {
+  stroke: var(--k8s-container);
+}
+
+.kube-topology line {
+  stroke: var(--light-1);
+  stroke-width: 2px;
+}
+
+.kube-topology g.selected use,
+.kube-topology g.selected circle {
+  stroke-width: 2px;
+}

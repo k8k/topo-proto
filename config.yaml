@@ -1,0 +1,47 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: topo-proto
+  name: topo-proto
+  namespace: dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: topo-proto
+  template:
+    metadata:
+      labels:
+        run: topo-proto
+    spec:
+      containers:
+        - image: gcr.io/kate-heptio/topo-proto:v1
+          imagePullPolicy: IfNotPresent
+          name: topo-proto
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+          - name: SKIP_CORS_CHECK
+            value: 'true'
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: topo-proto
+  name: topo-proto
+  namespace: dev
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+    name: tcp-80
+  selector:
+    run: topo-proto
+  type: LoadBalancer

@@ -1,0 +1,137 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>Prototype - Topology Graph</title>
+    <meta name="viewport" content="width=device-width">
+    <!-- lots of css -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+    <link rel="stylesheet" href="bower_components/kubernetes-topology-graph/dist/topology-graph.css" />
+    <link rel="stylesheet" href="bower_components/roboto-fontface/css/roboto/roboto-fontface.css">
+    <link rel="stylesheet" href="css/variables.css">    
+    <link rel="stylesheet" href="css/index.css">
+
+    <!-- external js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="data/custom-cluster.js"></script>
+    <script src="bower_components/kubernetes-topology-graph/dist/topology-graph.js"></script>
+
+    <!-- materialize js stuff jquery sorry -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+  </head>
+
+  <body ng-app="prototypeApp">
+   <div ng-controller="GraphCtrl">
+    <kubernetes-topology-graph
+      items="data.items"
+      relations="data.relations"
+      kinds="kinds"
+      force="topologyForce">
+    </kubernetes-topology-graph>
+    <div class="controls">
+      <a ng-click="switch()" class="waves-effect waves-light btn light-blue darken-2">Switch Cluster Dataset</a>
+      <kubernetes-topology-icon kind="Pod">
+        <svg class="kube-topology">
+          <use xlink:href="#vertex-Pod" x="20" y="20"></use>
+        </svg>
+      </kubernetes-topology-icon>
+      <label>Pods</label>
+
+      <kubernetes-topology-icon kind="Service">
+        <svg class="kube-topology">
+          <use xlink:href="#vertex-Service" x="20" y="20"></use>
+        </svg>
+      </kubernetes-topology-icon>
+      <label>Services</label>
+
+      <kubernetes-topology-icon kind="Node">
+        <svg class="kube-topology">
+          <use xlink:href="#vertex-Node" x="20" y="20"></use>
+        </svg>
+      </kubernetes-topology-icon>
+      <label>Nodes</label>
+
+      <kubernetes-topology-icon kind="ReplicationController">
+        <svg class="kube-topology">
+          <use xlink:href="#vertex-ReplicationController" x="20" y="20"></use>
+        </svg>
+      </kubernetes-topology-icon>
+      <label>Replication Controllers</label>
+
+      <kubernetes-topology-icon kind="Container">
+        <svg class="kube-topology">
+          <use xlink:href="#vertex-Container" x="20" y="20"></use>
+        </svg>
+      </kubernetes-topology-icon>
+      <label>Containers</label>
+
+      <kubernetes-topology-icon kind="ReplicaSet">
+        <svg class="kube-topology">
+          <use xlink:href="#vertex-ReplicaSet" x="20" y="20"></use>
+        </svg>
+      </kubernetes-topology-icon>
+      <label>ReplicaSets</label>
+    </div>
+
+      <div class="panel" id="manifest">
+        <h3 id="manifest-kind"></h2>
+        <h4 id="manifest-name"></h3>
+        <table class="bordered">
+        <tr ng-repeat="(key, value) in manifestData">
+          <td class="key">{{ key }}</td>
+          <td class="value">{{ value }}</td>
+        </tr>
+        <table>
+      </div>
+
+    <svg class="kube-topology" hidden>
+      <defs>
+        <g class="Node" id="vertex-Node">
+          <circle r="19"></circle>
+          <circle r="15"></circle>
+          <circle r="11"></circle>
+          
+        </g>
+        <g class="Pod" id="vertex-Pod">
+          <circle r="19"></circle>
+          <circle r="15"></circle>
+          <circle r="11"></circle>
+          <circle r="7"></circle>
+          
+        </g>
+        <g class="Service" id="vertex-Service">
+          <circle r="19"></circle>
+          <circle r="15"></circle>      
+
+        </g>
+        <g class="ReplicationController" id="vertex-ReplicationController">
+          <circle r="19"></circle>
+          <circle r="15"></circle>      
+
+        </g>
+        <g class="Container" id="vertex-Container">
+          <circle r="19"></circle>
+          <circle r="15"></circle>
+          <circle r="11"></circle>
+          <circle r="7"></circle>
+          <circle r="3"></circle>
+        </g>
+        <g class="ReplicaSet" id="vertex-ReplicaSet">
+          <circle r="19"></circle>
+          <circle r="15"></circle>      
+        </g>
+      </defs>
+    </svg>
+    <!-- angular app -->
+    <script src="js/app.js"></script>
+    <!-- data ingestion returns topology-graph's expected format -->    
+    <script src="js/data-ingestion.js"></script>  
+    <!-- Pre-formatted JSONP files from original project-->
+    <script src="data/example-data-1.jsonp"></script>
+    <script src="data/example-data-2.jsonp"></script>
+
+  </div>
+  </body>
+</html>

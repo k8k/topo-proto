@@ -1,0 +1,24 @@
+{
+  "name": "topo-proto",
+  "authors": [
+    "kate kuchin <kate.kuchin@gmail.com>"
+  ],
+  "description": "prototype of graph",
+  "main": "../server.js",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "^4.7.0",
+    "kubernetes-topology-graph": "^0.0.23",
+    "patternfly": "^3.26.1",
+    "roboto-fontface": "^0.8.0"
+  }
+}
