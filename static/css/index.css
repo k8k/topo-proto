@@ -19,8 +19,9 @@
 
 body {
   margin: 0px;
-  background: #616161;
+  background: var(--light-1)
 }
+
 
 kubernetes-topology-graph {
   border: 20px solid var(--light-1);
@@ -48,14 +49,16 @@ kubernetes-topology-graph {
   position: fixed;
   right: 0;
   top: 0;
-  width: 450px;
+  width: 500px;
+  max-width: 40vw;
   height: 100vh;
   background-color: white;
-  /*border: 1px solid var(--dark-1);*/
   transform: translateX(100%);
   transition: transform 0.5s ease-in-out;
   font-family: 'Roboto';
   padding: 20px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .panel-view {
@@ -94,6 +97,24 @@ kubernetes-topology-graph {
 #manifest.visible.Container h3,
 #manifest.visible.Container .key {
   color: var(--k8s-container);
+}
+
+#manifest div.label {
+  border: 1px solid var(--teal-accent-2);
+  color: var(--dark-1);
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 2px;
+  width: fit-content;
+}
+
+#manifest div.label.selector {
+  border: 1px solid var(--teal-lighten-2)
+}
+
+span.key.label {
+  padding-right: 10px;
+  margin-right: 10px;
 }
 
 .kube-topology g.Pod text,
@@ -135,8 +156,8 @@ kubernetes-topology-graph {
 }
 
 kubernetes-topology-icon svg {
-    width: 42px;
-    height: 42px;
+    width: 63px;
+    height: 63px;
     display: block;
 }
 
@@ -168,7 +189,7 @@ kubernetes-topology-icon svg {
 }
 
 .kube-topology line {
-  stroke: var(--light-1);
+  stroke:white;
   stroke-width: 2px;
 }
 

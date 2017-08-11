@@ -3,12 +3,17 @@ function sink(dataset) {
   datasets.push(dataset);
 }
 
+console.log(moment())
 var app = angular.module('prototypeApp', ['kubernetesUI'])
 
 app.controller('GraphCtrl', function($scope) {
   var index = 0;
-  $scope.data = datasets[index];
+  $scope.data = datasets[index]
+  // initialize data
   $scope.manifestData = { }
+  $scope.manifestSpec = { }
+
+  // kinds for visualization
   $scope.kinds = {
     Pod: '#vertex-Pod',
     ReplicationController: '#vertex-ReplicationController',
@@ -18,10 +23,11 @@ app.controller('GraphCtrl', function($scope) {
     Container: '#vertex-Container'
   };
 
+  // custome force for topology graph
   $scope.topologyForce = d3.layout
     .force()
-    .charge(-900)
-    .gravity(0.25)
+    .charge(-1500)
+    .gravity(.2)
     .linkDistance(100);
   
   $scope.switch = function() {
@@ -29,40 +35,44 @@ app.controller('GraphCtrl', function($scope) {
     $scope.data = datasets[index % datasets.length];
   };
 
-  $scope.info = function(thing) {
-    console.log($scope)
-  }
-
   $scope.$on("select", function(ev, item) {
     var text, kind, metadata, name
-    var selected = angular.element(document.getElementById("selected"))
     var manifestJs = document.getElementById('manifest')
     var manifest = angular.element(manifestJs)
     var manifestName = angular.element(document.getElementById("manifest-name"))
     var manifestKind = angular.element(document.getElementById("manifest-kind"))
     var manifestMetadata = angular.element(document.getElementById("manifest-metadata"))
     var manifestSpec = angular.element(document.getElementById("manifest-spec"))
-    console.log(ev)
+    
     if (item) {
       metadata = item.metadata
-      spec = item.spec   
-      name = metadata.name
-      kind = item.kind
-      selected.text(text);
-      $scope.manifestData = metadata
-
-      manifestName.text(name)
-      manifestKind.text(kind)
-      manifestMetadata.text(JSON.stringify(metadata))
-      manifestSpec.text(JSON.stringify(spec))
+      spec = item.spec
+      // get our metadata
+      $scope.kind = item.kind      
+      $scope.name = metadata.name
+      $scope.labels = metadata.labels
+      $scope.created = moment(metadata.creationTimestamp).format('MMMM DD, YYYY hh:mm:ss A')
+      $scope.namespace = metadata.namespace
+      $scope.selfLink = metadata.selfLink
+      $scope.image = metadata.image
+      $scope.imagePullPolicy = metadata.imagePullPolicy
+      
+      if (spec) {
+        $scope.dnsPolicy = spec.dnsPolicy
+        $scope.nodeName = spec.nodeName
+        $scope.restartPolicy = spec.restartPolicy
+        $scope.schedulerName = spec.schedulerName
+        $scope.serviceAccount = spec.serviceAccount
+        $scope.selector = spec.selector
+        $scope.clusterIP = spec.clusterIP
+        $scope.externalID = spec.externalID
+        $scope.providerID = spec.providerID
+        
+      }
       manifest[0].classList = [`${item.kind} visible panel-view panel`]
-
-
-
       $scope.$apply()
     } else {
       manifest[0].classList = ['panel']
-      // manifest[0].innerText = ''
     }
   });
 });
